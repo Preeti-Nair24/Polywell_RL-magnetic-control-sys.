@@ -213,5 +213,6 @@ fprintf('Min magnetic field: %.6f T\n', min(B_mag(:)));
 fprintf('Average density: %.2e m^-3\n', mean(density_e(:)));
 fprintf('Total fusion power: %.2e W\n', trapz(x, trapz(y, trapz(z, fusion_power))));
 
-fprintf('\n✅ SIMPLE TEST COMPLETE!\n');
+fprintf('\n SIMPLE TEST COMPLETE!\n');
+
 fprintf('Ready for ANSYS import!\n');
