@@ -18,7 +18,7 @@ Why This Design?
 -   **Cusps** (where coils meet): Particles can escape if field is wrong
 
 **Workflow structure**
-![Alt text](misc/workflow.png)
+![Alt text](misc/worlflow.png)
 
 **The Big Picture**
 
