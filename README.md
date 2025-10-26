@@ -17,6 +17,54 @@ Why This Design?
 -   At the **edges**: Magnetic field is STRONG → particles reflect back
 -   **Cusps** (where coils meet): Particles can escape if field is wrong
 
+**Workflow structure**
++-----------------------------------+
+|        Input Parameters           |
+|  (Geometry, Fuel, Coils, LH₂)     |
++-----------------------------------+
+               ↓
++-----------------------------------+
+|    Ansys Maxwell: Magnetic Fields |
+|  - Magnetostatic/Transient Solvers|
+|  - Geometry: Cubic polywell, coils|
+|  - Excitations: Coil currents     |
+|  - MHD: Plasma as conductive fluid|
+|  - Output: B-fields, plasma data  |
++-----------------------------------+
+               ↓ (B-field, plasma data)
+               |
++-----------------------------------+
+| MATLAB: RL for Confinement Control|
+|  - RL Toolbox: PPO Agent          |
+|  - Simulink: Plasma response      |
+|  - Actions: Coil currents         |
+|  - Observations: Density, well    |
+|  - Reward: Fusion rate - losses   |
+|  - Output: Optimized currents     |
++-----------------------------------+
+               ↕ (Feedback: Currents to Maxwell)
+               |
++-----------------------------------+
+|    LH₂ Heat Capture (Fluent/MATLAB)|
+|  - Fluent: CFD for LH₂ flow       |
+|  - MATLAB: Lumped thermal model   |
+|  - Input: Fusion heat flux        |
+|  - Output: Heat, LH₂ temp data    |
++-----------------------------------+
+               ↓
++-----------------------------------+
+|   Power Calculation & Visualization|
+|  - Calculate: Thermal/electrical   |
+|  - Plot: Heat, LH₂ temp vs. time   |
+|  - Output: Data table, plots       |
++-----------------------------------+
+               ↓
++-----------------------------------+
+|            Results                |
+|  - Data: Heat, temp over time     |
+|  - Visuals: Dual-axis plots       |
++-----------------------------------+
+
 **The Big Picture**
 
 Start with 6 magnetic coils
@@ -49,45 +97,8 @@ Liquid hydrogen absorbs heat
 
 Temperature of the hydrogen used to calculate overall power generated
 
-**System Workflow Overview**
 
-1.  **User Input**
-    -   Provide geometry, plasma parameters, and RL (Reinforcement Learning) configuration.
-    -   Define reward functions.
-2.  **Define RL Agent**
-    -   Set up policy network and RL outputs.
-3.  **RL Agent Decides**
-    -   Generate output control commands.
-    -   Write variables and parameters to a file.
-4.  **Send to ANSYS**
-    -   Transfer current values.
-    -   Initiate FEA (Finite Element Analysis) solver.
-5.  **ANSYS Maxwell**
-    -   Solve for magnetic fields.
-    -   Export field data.
-6.  **Plasma Simulation**
-    -   Use field data to simulate plasma behavior.
-    -   Compute plasma parameters.
-7.  **Fusion Calculation**
-    -   Perform D-D (Deuterium-Deuterium) reaction calculations.
-    -   Determine neutron yield.
-8.  **Neutron Tracking**
-    -   Map neutron heat generation.
-9.  **Power Generation**
-    -   Evaluate heat conversion.
-    -   Calculate net power output.
-10. **RL Evaluation**
--   Assess overall performance.
--   Compute reward functions.
-1.  **Display Results**
--   Show dashboard and visual outputs.
--   Check if optimization criteria are met.
 
-**Manual Override:**
-
--   Allows user intervention at any stage of the process.
-
-**Loop:**
 
 -   Continues until the RL agent achieves optimal performance.
 
