@@ -18,52 +18,6 @@ Why This Design?
 -   **Cusps** (where coils meet): Particles can escape if field is wrong
 
 **Workflow structure**
-+-----------------------------------+
-|        Input Parameters           |
-|  (Geometry, Fuel, Coils, LH₂)     |
-+-----------------------------------+
-               ↓
-+-----------------------------------+
-|    Ansys Maxwell: Magnetic Fields |
-|  - Magnetostatic/Transient Solvers|
-|  - Geometry: Cubic polywell, coils|
-|  - Excitations: Coil currents     |
-|  - MHD: Plasma as conductive fluid|
-|  - Output: B-fields, plasma data  |
-+-----------------------------------+
-               ↓ (B-field, plasma data)
-               |
-+-----------------------------------+
-| MATLAB: RL for Confinement Control|
-|  - RL Toolbox: PPO Agent          |
-|  - Simulink: Plasma response      |
-|  - Actions: Coil currents         |
-|  - Observations: Density, well    |
-|  - Reward: Fusion rate - losses   |
-|  - Output: Optimized currents     |
-+-----------------------------------+
-               ↕ (Feedback: Currents to Maxwell)
-               |
-+-----------------------------------+
-|    LH₂ Heat Capture (Fluent/MATLAB)|
-|  - Fluent: CFD for LH₂ flow       |
-|  - MATLAB: Lumped thermal model   |
-|  - Input: Fusion heat flux        |
-|  - Output: Heat, LH₂ temp data    |
-+-----------------------------------+
-               ↓
-+-----------------------------------+
-|   Power Calculation & Visualization|
-|  - Calculate: Thermal/electrical   |
-|  - Plot: Heat, LH₂ temp vs. time   |
-|  - Output: Data table, plots       |
-+-----------------------------------+
-               ↓
-+-----------------------------------+
-|            Results                |
-|  - Data: Heat, temp over time     |
-|  - Visuals: Dual-axis plots       |
-+-----------------------------------+
 
 **The Big Picture**
 
