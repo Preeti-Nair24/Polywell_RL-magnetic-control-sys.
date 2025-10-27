@@ -23,8 +23,6 @@ Why This Design?
 
 ![Alt text](misc/worlflow.png)
 
-![Alt test](misc/B%20field_10kA.png)
-
 
 1. Inputs: Define polywell geometry, fusion fuel, coil setup, and LH₂ coolant parameters.
 2. Ansys Maxwell: Simulates magnetic cusp fields and plasma response (MHD approximation). Exports field and plasma data to MATLAB.
@@ -32,5 +30,5 @@ Why This Design?
 4. LH₂ Heat Capture: Models heat absorption by LH₂ using Fluent (CFD) or MATLAB (lumped model). Outputs heat and temperature data.
 5. Power & Visualization: Computes power metrics, generates dual-axis plots (heat and LH₂ temperature vs. time).
 
-
+![Alt test](misc/B%20field_10kA.png)
 
