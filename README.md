@@ -22,7 +22,8 @@ Why This Design?
 **Workflow structure**
 
 ![Alt text](misc/worlflow.png)
-![Alt text](misc/B field_10kA.png)
+
+![Alt test](misc/B field_10kA.png)
 
 
 1. Inputs: Define polywell geometry, fusion fuel, coil setup, and LH₂ coolant parameters.
