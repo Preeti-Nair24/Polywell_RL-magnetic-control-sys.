@@ -9,6 +9,8 @@ What is Polywell?
 
 A Polywell is a type of fusion reactor that uses 6 circular magnetic coils arranged at the faces of a cube. These coils create a magnetic field configuration called "magnetic cusps" that confines plasma.
 
+![Alt text](misc/polywellreactor.png)
+
 Why This Design?
 
 -   **6 coils** create a spherical magnetic "bottle"
