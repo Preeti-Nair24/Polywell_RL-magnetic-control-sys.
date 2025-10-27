@@ -21,40 +21,11 @@ Why This Design?
 
 ![Alt text](misc/worlflow.png)
 
-**The Big Picture**
-
-Start with 6 magnetic coils
-
-↓
-
-RL adjusts their currents
-
-↓
-
-ANSYS Maxwell calculates magnetic field
-
-↓
-
-Plasma particles get confined (or escape)
-
-↓
-
-Confined plasma undergoes fusion
-
-↓
-
-Fusion produces neutrons and energy
-
-↓
-
-Liquid hydrogen absorbs heat
-
-↓
-
-Temperature of the hydrogen used to calculate overall power generated
+1. Inputs: Define polywell geometry, fusion fuel, coil setup, and LH₂ coolant parameters.
+2. Ansys Maxwell: Simulates magnetic cusp fields and plasma response (MHD approximation). Exports field and plasma data to MATLAB.
+3. MATLAB RL: Uses PPO agent to optimize coil currents for confinement, feeding adjustments back to Maxwell via AEDT API.
+4. LH₂ Heat Capture: Models heat absorption by LH₂ using Fluent (CFD) or MATLAB (lumped model). Outputs heat and temperature data.
+5. Power & Visualization: Computes power metrics, generates dual-axis plots (heat and LH₂ temperature vs. time).
 
 
-
-
--   Continues until the RL agent achieves optimal performance.
 
