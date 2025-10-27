@@ -22,6 +22,7 @@ Why This Design?
 **Workflow structure**
 
 ![Alt text](misc/worlflow.png)
+![Alt text](misc/B field_10kA.png)
 
 1. Inputs: Define polywell geometry, fusion fuel, coil setup, and LH₂ coolant parameters.
 2. Ansys Maxwell: Simulates magnetic cusp fields and plasma response (MHD approximation). Exports field and plasma data to MATLAB.
