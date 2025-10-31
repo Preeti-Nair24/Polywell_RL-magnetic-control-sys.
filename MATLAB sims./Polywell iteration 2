@@ -22,7 +22,7 @@ dx = L/(grid_size-1);   % Spatial resolution (m)
 
 %% Polywell Geometry - 6 magnetic coils in cubic arrangement
 n_coils = 6;
-coil_radius = 0.02;     % Coil radius (m)
+coil_radius = 1;     % Coil radius (m)
 coil_positions = [
     L/2, 0, L/2;        % Front
     L/2, L, L/2;        % Back
