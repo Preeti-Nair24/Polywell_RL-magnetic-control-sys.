@@ -19,7 +19,7 @@ params.epsilon_0 = 8.854e-12;   % Permittivity of free space
 % Polywell IEC reactor geometry
 params.R_reactor = 0.25;        % Reactor radius (m)
 params.n_coils = 6;             % Number of magnetic coils (point cusps)
-params.coil_radius = 0.15;      % Coil radius (m)
+params.coil_radius = 1;      % Coil radius (m)
 params.coil_turns = 100;        % Turns per coil
 params.well_depth_base = 80000; % Base potential well depth (V)
 
