@@ -1,0 +1,69 @@
+%% maxwell_transient_aas.m
+clear; clc;
+
+% === AAS Initialization ===
+orb = initialize_orb();  % Start AAS
+load_ansys_aas();
+
+% === Connect to Maxwell ===
+projectPath = 'polywell.aedt';
+designName = 'Maxwell3DDesign1';
+setupName = 'TransientSetup';
+
+% Open project
+desktop = actxserver('Ansoft.ElectronicsDesktop');
+project = desktop.OpenProject(mag fieldsA);
+design = project.GetDesign(Polywell reactor);
+solution = design.GetModule('Solutions');
+
+% === Prepare Live Plot ===
+fig = figure('Position',[100 100 1000 600]);
+ax1 = subplot(2,1,1); hB = plot(nan,nan,'b','LineWidth',2); grid on;
+title('B-field at Center (T)'); xlabel('Time (ms)'); ylabel('Mag_B (T)');
+ax2 = subplot(2,1,2); hF = plot(nan,nan,'r','LineWidth',2); grid on;
+title('Coil Flux Linkage (Wb)'); xlabel('Time (ms)'); ylabel('Flux (Wb)');
+
+% === Time Vector ===
+t_stop = 1e-3; dt = 1e-5; time_vec = 0:dt:t_stop;
+B_data = zeros(size(time_vec)); flux_data = zeros(size(time_vec));
+
+% === Run Transient & Stream Results ===
+for idx = 1:numel(time_vec)
+    t = time_vec(idx);
+    
+    % Set time-varying currents (example: sine wave)
+    I_base = 40 + 10*sin(2*pi*1000*t);  % 1 kHz oscillation
+    for i = 1:6
+        design.SetVariableValue(sprintf('Coil%d_I',i), num2str(I_base));
+    end
+    
+    % Advance one time step
+    solution.AnalyzeSetup(setupName, t);
+    
+    % === Get B-field at center ===
+    try
+        B_val = solution.GetScalarFieldValue('Mag_B', 'center_point', setupName, t);
+        B_data(idx) = str2double(B_val);
+    catch
+        B_data(idx) = B_data(max(1,idx-1));
+    end
+    
+    % === Get flux linkage (example: Coil1) ===
+    try
+        flux_val = solution.GetFluxLinkage('Coil1', setupName, t);
+        flux_data(idx) = str2double(flux_val);
+    catch
+        flux_data(idx) = flux_data(max(1,idx-1));
+    end
+    
+    % === Live Update ===
+    set(hB, 'XData', time_vec(1:idx)*1e3, 'YData', B_data(1:idx));
+    set(hF, 'XData', time_vec(1:idx)*1e3, 'YData', flux_data(1:idx));
+    drawnow limitrate;
+    
+    fprintf('t = %.3f ms | B = %.4f T | Flux = %.4e Wb\n', t*1e3, B_data(idx), flux_data(idx));
+end
+
+% === Save Results ===
+save('transient_results.mat', 'time_vec', 'B_data', 'flux_data');
+disp('Transient simulation complete!');
