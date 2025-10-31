@@ -1,0 +1,21 @@
+%% maxwell_transient_aas.m
+clear; clc;
+
+% === AAS Initialization ===
+orb = initialize_orb();  % Start AAS
+load_ansys_aas();
+
+% === Connect to Maxwell ===
+projectPath = 'polywell.aedt';
+designName = 'Maxwell3DDesign1';
+setupName = 'TransientSetup';
+
+% Open project
+desktop = actxserver('Ansoft.ElectronicsDesktop');
+project = desktop.OpenProject(mag fieldsA);
+design = project.GetDesign(Polywell reactor.aedt);
+solution = design.GetModule('Solutions');
+
+% === Save Results ===
+save('transient_results.mat', 'time_vec', 'B_data', 'flux_data');
+disp('Transient simulation complete!');
