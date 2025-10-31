@@ -32,3 +32,5 @@ Why This Design?
 
 ![Alt test](misc/B%20field_10kA.png)
 
+![Alt test](misc/Iteration%201.png)
+![Alt test](misc/Iteration%205.png)
