@@ -21,7 +21,7 @@ Why This Design?
 
 **Workflow structure**
 
-![Alt text](misc/Screenshot%202025-11-09%20101714.png)
+![Alt text](misc/Yellow%20and%20White%20Modern%20Recruitment%20Process%20Flow%20Chart%20Graph.png)
 
 
 1. Inputs: Define polywell geometry, fusion fuel, coil setup, and LH₂ coolant parameters.
